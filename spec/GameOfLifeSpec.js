@@ -60,7 +60,7 @@ describe("GameOfLife", function(){
         expect(game.getLivingNeighborCount(0,0)).toBe(2);
       });
       it("cell 1,0", function(){
-        expect(game.getLivingNeighborCount(1,0)).toBe(1);
+        expect(game.getLivingNeighborCount(1,0)).toBe(3);
       });
       it("cell 1,1", function(){
         expect(game.getLivingNeighborCount(1,1)).toBe(2);

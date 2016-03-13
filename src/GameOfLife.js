@@ -48,8 +48,8 @@ var GameOfLife = (function() {
       var coordinate = neighborCoordinates[i],
           x = coordinate[0],
           y = coordinate[1];
-      if (x >= 0 && x <= 8 && y >= 0 && y <= 6) {
-        if (this.currentBoardState[x][y] == livingCellValue) {
+      if (x >= 0 && x < 8 && y >= 0 && y < 6) {
+        if (this.currentBoardState[y][x] == livingCellValue) {
           livingCount++;
         }
       }
