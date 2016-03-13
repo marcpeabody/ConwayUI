@@ -58,5 +58,15 @@ var GameOfLife = (function() {
     return livingCount;
   };
 
+  Game.prototype.isCellAliveInNextStep = function(x,y) {
+    var isAlive = this.currentBoardState[y][x] == livingCellValue,
+        livingNeighborCount = this.getLivingNeighborCount(x,y);
+    if (isAlive) {
+      return livingNeighborCount == 2 || livingNeighborCount == 3;
+    } else {
+      return livingNeighborCount == 3;
+    }
+  }
+
   return Game;
 })();

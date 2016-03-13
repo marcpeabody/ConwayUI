@@ -96,4 +96,23 @@ describe("GameOfLife", function(){
     });
   });
 
+  describe('isCellAliveInNextStep', function(){
+    var game = new GameOfLife(textualBoard);
+
+    it("cell 0,0 is dead and touching 2 stays dead", function(){
+      expect(game.isCellAliveInNextStep(0,0)).toBeFalsy();
+    });
+    it("cell 1,0 is dead and touching 3 comes alive", function(){
+      expect(game.isCellAliveInNextStep(1,0)).toBeTruthy();
+    });
+    it("cell 0,1 is alive and touching 1 dies", function(){
+      expect(game.isCellAliveInNextStep(0,1)).toBeFalsy();
+    });
+    it("cell 1,1 is alive and touching 2 stays alive", function(){
+      expect(game.isCellAliveInNextStep(1,1)).toBeTruthy();
+    });
+    it("cell 3,5 is alive and touching 3 stays alive", function(){
+      expect(game.isCellAliveInNextStep(3,5)).toBeTruthy();
+    });
+  });
 });
