@@ -1,4 +1,6 @@
 var GameOfLife = (function() {
+  var livingCellValue = 'O';
+
   var Game = function(input){
     this.currentBoardState = this.parseBoard(input);
   };
@@ -16,11 +18,11 @@ var GameOfLife = (function() {
       }
     }
     return arrays;
-  }
+  };
 
   Game.prototype.renderCurrentBoard = function() {
     return this.renderBoard(this.currentBoardState);
-  }
+  };
 
   Game.prototype.renderBoard = function(arrays) {
     // return this.currentBoardState;
@@ -31,7 +33,30 @@ var GameOfLife = (function() {
     }
 
     return textArray;
-  }
+  };
+
+  Game.prototype.getLivingNeighborCount = function(x,y) {
+    var b = this.currentBoardState,
+        neighborCoordinates = [
+          [x-1, y-1], [x, y-1], [x+1, y-1],
+          [x-1,   y],           [x+1,   y],
+          [x-1, y+1], [x, y+1], [x+1, y+1]
+        ],
+        livingCount = 0;
+
+    for (var i in neighborCoordinates) {
+      var coordinate = neighborCoordinates[i],
+          x = coordinate[0],
+          y = coordinate[1];
+      if (x >= 0 && x <= 8 && y >= 0 && y <= 6) {
+        if (this.currentBoardState[x][y] == livingCellValue) {
+          livingCount++;
+        }
+      }
+    }
+
+    return livingCount;
+  };
 
   return Game;
 })();

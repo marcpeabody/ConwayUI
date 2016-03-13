@@ -14,6 +14,22 @@ describe("GameOfLife", function(){
         ['.','.','.','.','.','.','.','.'],
         ['.','.','.','O','O','.','.','.'],
         ['.','.','.','O','O','.','.','.'],
+      ],
+      fullBoard = [
+        "OOOOOOOO",
+        "OOOOOOOO",
+        "OOOOOOOO",
+        "OOOOOOOO",
+        "OOOOOOOO",
+        "OOOOOOOO"
+      ],
+      emptyBoard = [
+        "........",
+        "........",
+        "........",
+        "........",
+        "........",
+        "........"
       ]
   ;
 
@@ -35,4 +51,49 @@ describe("GameOfLife", function(){
 
     expect(renderedBoard).toEqual(textualBoard);
   });
+
+  describe("getLivingNeighborCount", function(){
+    describe('on the example textual board', function(){
+      var game = new GameOfLife(textualBoard);
+
+      it("cell 0,0", function(){
+        expect(game.getLivingNeighborCount(0,0)).toBe(2);
+      });
+      it("cell 1,0", function(){
+        expect(game.getLivingNeighborCount(1,0)).toBe(1);
+      });
+      it("cell 1,1", function(){
+        expect(game.getLivingNeighborCount(1,1)).toBe(2);
+      });
+    });
+
+    describe('on a full board', function(){
+      var game = new GameOfLife(fullBoard);
+
+      it("cell 0,0", function(){
+        expect(game.getLivingNeighborCount(0,0)).toBe(3);
+      });
+      it("cell 1,0", function(){
+        expect(game.getLivingNeighborCount(1,0)).toBe(5);
+      });
+      it("cell 1,1", function(){
+        expect(game.getLivingNeighborCount(1,1)).toBe(8);
+      });
+    });
+
+    describe('on an empty board', function(){
+      var game = new GameOfLife(emptyBoard);
+
+      it("cell 0,0", function(){
+        expect(game.getLivingNeighborCount(0,0)).toBe(0);
+      });
+      it("cell 1,0", function(){
+        expect(game.getLivingNeighborCount(1,0)).toBe(0);
+      });
+      it("cell 1,1", function(){
+        expect(game.getLivingNeighborCount(1,1)).toBe(0);
+      });
+    });
+  });
+
 });
