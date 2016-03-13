@@ -1,5 +1,6 @@
 var GameOfLife = (function() {
-  var livingCellValue = 'O';
+  var livingCellValue = 'O',
+      deadCellValue = '.';
 
   var Game = function(input){
     this.currentBoardState = this.parseBoard(input);
@@ -9,12 +10,12 @@ var GameOfLife = (function() {
     var arrays = [],
         row;
 
-    for (var i in input) {
-      arrays[i] = []; // 2nd dimension
+    for (var y in input) {
+      arrays[y] = []; // 2nd dimension
 
-      row = input[i];
-      for (var j in row) {
-        arrays[i][j] = row.charAt(j);
+      row = input[y];
+      for (var x in row) {
+        arrays[y][x] = row.charAt(x);
       }
     }
     return arrays;
@@ -25,7 +26,6 @@ var GameOfLife = (function() {
   };
 
   Game.prototype.renderBoard = function(arrays) {
-    // return this.currentBoardState;
     var textArray = [];
 
     for (var i in arrays) {
@@ -36,8 +36,9 @@ var GameOfLife = (function() {
   };
 
   Game.prototype.getLivingNeighborCount = function(x,y) {
-    var b = this.currentBoardState,
-        neighborCoordinates = [
+    x = +x;
+    y = +y;
+    var neighborCoordinates = [
           [x-1, y-1], [x, y-1], [x+1, y-1],
           [x-1,   y],           [x+1,   y],
           [x-1, y+1], [x, y+1], [x+1, y+1]
@@ -46,10 +47,10 @@ var GameOfLife = (function() {
 
     for (var i in neighborCoordinates) {
       var coordinate = neighborCoordinates[i],
-          x = coordinate[0],
-          y = coordinate[1];
-      if (x >= 0 && x < 8 && y >= 0 && y < 6) {
-        if (this.currentBoardState[y][x] == livingCellValue) {
+          neighborX = coordinate[0],
+          neighborY = coordinate[1];
+      if (neighborX >= 0 && neighborX < 8 && neighborY >= 0 && neighborY < 6) {
+        if (this.currentBoardState[neighborY][neighborX] == livingCellValue) {
           livingCount++;
         }
       }
@@ -67,6 +68,23 @@ var GameOfLife = (function() {
       return livingNeighborCount == 3;
     }
   }
+
+  Game.prototype.processNextStep = function() {
+    var newBoard = [],
+        oldBoard = this.currentBoardState,
+        oldRow;
+
+    for (var y in oldBoard) {
+      oldRow = oldBoard[y];
+      newBoard[y] = [];
+      for (var x in oldRow) {
+        newBoard[y][x] = (this.isCellAliveInNextStep(x,y) ? livingCellValue : deadCellValue);
+      }
+    }
+
+    this.currentBoardState = newBoard;
+    return this.currentBoardState;
+  };
 
   return Game;
 })();

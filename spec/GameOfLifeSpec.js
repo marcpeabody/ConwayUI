@@ -7,6 +7,14 @@ describe("GameOfLife", function(){
         "...OO...",
         "...OO..."
       ],
+      textualBoardSecondState = [
+        ".O......",
+        ".O...OOO",
+        ".O......",
+        "........",
+        "...OO...",
+        "...OO..."
+      ],
       parsedBoard = [
         ['.','.','.','.','.','.','O','.'],
         ['O','O','O','.','.','.','O','.'],
@@ -22,6 +30,14 @@ describe("GameOfLife", function(){
         "OOOOOOOO",
         "OOOOOOOO",
         "OOOOOOOO"
+      ],
+      fullBoardSecondState = [
+        "O......O",
+        "........",
+        "........",
+        "........",
+        "........",
+        "O......O"
       ],
       emptyBoard = [
         "........",
@@ -113,6 +129,26 @@ describe("GameOfLife", function(){
     });
     it("cell 3,5 is alive and touching 3 stays alive", function(){
       expect(game.isCellAliveInNextStep(3,5)).toBeTruthy();
+    });
+  });
+
+  describe('processNextStep', function(){
+    it("moves to second state and back again in standard example", function(){
+      var game = new GameOfLife(textualBoard);
+      game.processNextStep();
+      expect(game.renderCurrentBoard()).toEqual(textualBoardSecondState);
+      game.processNextStep();
+      expect(game.renderCurrentBoard()).toEqual(textualBoard);
+    });
+    it("kills off all but corners of a full board", function(){
+      var game = new GameOfLife(fullBoard);
+      game.processNextStep();
+      expect(game.renderCurrentBoard()).toEqual(fullBoardSecondState);
+    });
+    it("leaves an empty board dead", function(){
+      var game = new GameOfLife(emptyBoard);
+      game.processNextStep();
+      expect(game.renderCurrentBoard()).toEqual(emptyBoard);
     });
   });
 });
