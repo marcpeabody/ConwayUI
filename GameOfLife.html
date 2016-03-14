@@ -6,6 +6,7 @@
 
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.4.1/jasmine_favicon.png">
   <link rel="stylesheet" href="lib/jasmine-2.4.1/jasmine.css">
+  <link rel="stylesheet" href="css/GameOfLifeUI.css">
 
   <script src="lib/jasmine-2.4.1/jasmine.js"></script>
   <script src="lib/jasmine-2.4.1/jasmine-html.js"></script>
@@ -14,17 +15,20 @@
 
   <!-- include source files here... -->
   <script src="src/GameOfLife.js"></script>
+  <script src="src/GameOfLifeUI.js"></script>
 
   <!-- include spec files here... -->
   <script src="spec/GameOfLifeSpec.js"></script>
+  <script src="spec/GameOfLifeUISpec.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function(){
-    
+      var ui = new GameOfLifeUI($('.game'));
     });
   </script>
 </head>
 <body>
+  <div class="game"></div>
 </body>
 </html>
 

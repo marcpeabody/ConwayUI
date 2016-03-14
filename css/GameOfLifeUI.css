@@ -1,0 +1,21 @@
+.board {
+  padding-bottom: 10px;
+    border: 1px solid blue;
+}
+.row {
+  display: block;
+  border: 0px solid red;
+  height: 20px;
+}
+.cell {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+}
+.alive {
+  background-color: green;
+}
+.controls {
+  margin: 20px;
+}

@@ -1,8 +1,17 @@
 var GameOfLife = (function() {
   var livingCellValue = 'O',
-      deadCellValue = '.';
+      deadCellValue = '.',
+      defaultBoard = [
+        "......O.",
+        "OOO...O.",
+        "......O.",
+        "........",
+        "...OO...",
+        "...OO..."
+      ];
 
   var Game = function(input){
+    input = input || defaultBoard;
     this.currentBoardState = this.parseBoard(input);
   };
 
@@ -59,8 +68,12 @@ var GameOfLife = (function() {
     return livingCount;
   };
 
+  Game.prototype.isCellAlive = function(x,y) {
+    return this.currentBoardState[y][x] == livingCellValue;
+  };
+
   Game.prototype.isCellAliveInNextStep = function(x,y) {
-    var isAlive = this.currentBoardState[y][x] == livingCellValue,
+    var isAlive = this.isCellAlive(x,y),
         livingNeighborCount = this.getLivingNeighborCount(x,y);
     if (isAlive) {
       return livingNeighborCount == 2 || livingNeighborCount == 3;
