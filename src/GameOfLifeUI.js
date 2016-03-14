@@ -10,10 +10,13 @@ var GameOfLifeUI = (function() {
     ui.container.on('click', '.cell', function(){
       var $cell = $(this);
       $cell.toggleClass('alive');
+
+      ui.game.parseBoard(ui.getGridData());
     });
+
     ui.container.on('click', '.controls .step', function(){
-      // gather cell values
-      // create GameOfLife
+      ui.game.processNextStep();
+      ui.renderGrid();
     });
 
     ui.render();
@@ -33,6 +36,7 @@ var GameOfLifeUI = (function() {
     var ui = this,
         game = ui.game,
         $grid = this.container.find('.grid');
+    $grid.html('');
     for (var y=0; y<6; y++) {
       var $row = $('<div>').addClass('row');
       $grid.append($row);
@@ -49,6 +53,17 @@ var GameOfLifeUI = (function() {
   UI.prototype.renderControls = function() {
     var $step = $('<button>Step</button>').addClass('step');
     this.container.find('.controls').append($step);
+  };
+
+  UI.prototype.getGridData = function() {
+    var ui = this,
+        $rows = ui.container.find('.row');
+
+    return $.map($rows, function(row){
+      return $.map($(row).find('.cell'), function(cell){
+        return $(cell).hasClass('alive') ? 'O' : '.';
+      }).join('');
+    });
   };
 
   return UI;

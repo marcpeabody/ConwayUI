@@ -12,7 +12,7 @@ var GameOfLife = (function() {
 
   var Game = function(input){
     input = input || defaultBoard;
-    this.currentBoardState = this.parseBoard(input);
+    this.parseBoard(input);
   };
 
   Game.prototype.parseBoard = function(input) {
@@ -27,6 +27,7 @@ var GameOfLife = (function() {
         arrays[y][x] = row.charAt(x);
       }
     }
+    this.currentBoardState = arrays;
     return arrays;
   };
 

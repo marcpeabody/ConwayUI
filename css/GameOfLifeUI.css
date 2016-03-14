@@ -1,6 +1,5 @@
 .board {
   padding-bottom: 10px;
-    border: 1px solid blue;
 }
 .row {
   display: block;
@@ -17,5 +16,5 @@
   background-color: green;
 }
 .controls {
-  margin: 20px;
+  margin: 20px 0;
 }
